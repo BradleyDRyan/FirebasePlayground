@@ -21,25 +21,12 @@ struct SettingsView: View {
                 .onChange(of: state) { newValue in
                     updateStatus(state: state)
                 }
-            
-            //Everything works here except the toggle doesn't animate properly.
-            Toggle("Approach 2", isOn: Binding<Bool>(
-                get: { content.user?.toggled ?? false },
-                set: {
-                    // $0 is the new Bool value of the toggle
-                    // Your code for updating the model, or whatever
-                    print("value: \($0)")
-                    setToggle(state: $0)
-                }
-            )
-            )
-            
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+
                 state = content.user?.toggled ?? false
                 // content.getUserData()
-                
                 guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
                     return
                 }
@@ -84,22 +71,6 @@ struct SettingsView: View {
             }
     }
     
-    func setToggle(state: Bool) {
-        
-        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
-        
-        let userData = ["toggled": state]
-        
-        FirebaseManager.shared.firestore.collection("users")
-            .document(uid).updateData(userData) { err in
-                if let err = err {
-                    print(err)
-                    print("Failure")
-                    return
-                }
-                print("Success")
-            }
-    }
     
 }
 
