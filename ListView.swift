@@ -15,9 +15,9 @@ struct Option: Identifiable, Hashable {
 
 struct ListView: View {
 
-	@ObservedObject var viewModel = OptionsViewModel() // (/1)
 	@State var selectedSchool = "option 1"
 	@StateObject var content = ContentModel()
+	@StateObject var viewModel = OptionsViewModel() // (/1)
 
 	var body: some View {
 
