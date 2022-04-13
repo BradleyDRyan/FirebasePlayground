@@ -76,17 +76,29 @@ func storeUserInformation() {
 struct User {
     var uid,
     name: String,
+		userSelectedOption: String,
     toggled: Bool
  }
 
 class ContentModel: ObservableObject {
     
-    @Published var errorMessage = ""
-    @Published var user: User?
+	@Published var errorMessage = ""
+	@Published var user: User?
     
-    init() {
-        getUserData()
-    }
+	init() {
+			getUserData()
+	}
+
+	func setToggled(to newValue: Bool) {
+		user?.toggled = newValue
+
+		//update user in firestore
+		guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+				self.errorMessage = "Could not find firebase uid"
+				return
+		}
+		FirebaseManager.shared.firestore.collection("users").document(uid).updateData(["toggled": newValue])
+	}
 
     func getUserData() {
         
@@ -112,12 +124,15 @@ class ContentModel: ObservableObject {
             let uid = data["uid"] as? String ?? ""
             let name = data["name"] as? String ?? ""
             let toggled = data["toggled"] as? Bool ?? false
+						let userSelectedOption = data["userSelectedOption"] as? String ?? "option 1"
 
             self.user = User(
                 uid: uid,
                 name: name,
+								userSelectedOption: userSelectedOption,
                 toggled: toggled
             )
+
         }
         
     }
