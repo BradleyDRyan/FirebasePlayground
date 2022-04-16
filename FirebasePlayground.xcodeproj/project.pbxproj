@@ -16,6 +16,7 @@
 		9478864F27E9446300925E7B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9478864E27E9446300925E7B /* GoogleService-Info.plist */; };
 		9478865127E9FF1900925E7B /* BoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9478865027E9FF1900925E7B /* BoolView.swift */; };
 		94EF166728062D3900172C91 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF166628062D3900172C91 /* ListView.swift */; };
+		94EF1669280655F200172C91 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF1668280655F200172C91 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		9478864E27E9446300925E7B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9478865027E9FF1900925E7B /* BoolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolView.swift; sourceTree = "<group>"; };
 		94EF166628062D3900172C91 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		94EF1668280655F200172C91 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				9478860927E9227600925E7B /* ContentView.swift */,
 				9478865027E9FF1900925E7B /* BoolView.swift */,
 				94EF166628062D3900172C91 /* ListView.swift */,
+				94EF1668280655F200172C91 /* Theme.swift */,
 			);
 			name = Playground;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			files = (
 				9478865127E9FF1900925E7B /* BoolView.swift in Sources */,
 				9478863227E9227700925E7B /* ContentView.swift in Sources */,
+				94EF1669280655F200172C91 /* Theme.swift in Sources */,
 				94EF166728062D3900172C91 /* ListView.swift in Sources */,
 				9478863027E9227700925E7B /* FirebasePlaygroundApp.swift in Sources */,
 			);

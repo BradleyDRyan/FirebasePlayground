@@ -11,30 +11,31 @@ struct ContentView: View {
     
     
     @ObservedObject var content = ContentModel()
-    
+
+		var theme = ThemeData()
+
     var body: some View {
         VStack(spacing: 24) {
-            Spacer()
-            Button (action: {
-                signInAnonymously()
-            }) {
-                Text("Sign in")
-            }
-            Button (action: {
-                content.getUserData()
-            }) {
-                Text("Get User Data")
-            }
-            
-            BoolView()
+//            Spacer()
+//            Button (action: {
+//                signInAnonymously()
+//            }) {
+//                Text("Sign in")
+//            }
+//            Button (action: {
+//                content.getUserData()
+//            }) {
+//                Text("Get User Data")
+//            }
 
-						ListView()
-            
-            // why do I have to do this?
-            Text(content.user?.name ?? "")
-                .foregroundColor(Color.blue)
+						ThemeView()
+							.environmentObject(theme)
 
-            Spacer()
+//            BoolView()
+//
+//						ListView()
+//
+//            Spacer()
         }
     }
 }

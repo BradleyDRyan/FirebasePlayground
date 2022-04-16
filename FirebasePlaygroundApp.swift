@@ -77,7 +77,8 @@ struct User {
     var uid,
     name: String,
 		userSelectedOption: String,
-    toggled: Bool
+    toggled: Bool,
+		theme: Int
  }
 
 class ContentModel: ObservableObject {
@@ -88,6 +89,21 @@ class ContentModel: ObservableObject {
 	init() {
 			getUserData()
 	}
+
+
+	func updateUserSelectedOption(to newValue: String) {
+
+		user?.userSelectedOption = newValue
+
+		//update user in firestore
+		guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+				self.errorMessage = "Could not find firebase uid"
+				return
+		}
+		FirebaseManager.shared.firestore.collection("users").document(uid).updateData(["userSelectedOption": newValue])
+	}
+
+
 
 	func setToggled(to newValue: Bool) {
 		user?.toggled = newValue
@@ -125,12 +141,15 @@ class ContentModel: ObservableObject {
             let name = data["name"] as? String ?? ""
             let toggled = data["toggled"] as? Bool ?? false
 						let userSelectedOption = data["userSelectedOption"] as? String ?? "option 1"
+						let theme = data["theme"] as? Int ?? 0
 
             self.user = User(
                 uid: uid,
                 name: name,
 								userSelectedOption: userSelectedOption,
-                toggled: toggled
+                toggled: toggled,
+								theme: theme
+
             )
 
         }

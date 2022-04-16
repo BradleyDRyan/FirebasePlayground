@@ -15,7 +15,6 @@ struct Option: Identifiable, Hashable {
 
 struct ListView: View {
 
-	@State var selectedSchool = "option 1"
 	@StateObject var content = ContentModel()
 	@StateObject var viewModel = OptionsViewModel() // (/1)
 
@@ -23,30 +22,26 @@ struct ListView: View {
 
 		Form {
 			Section {
-				Picker(selection: $selectedSchool, label: Text("School Name")) {
+				
+				Picker(selection: Binding<String>(
+					get: {
+						content.user?.userSelectedOption ?? ""
+					},
+					set: {
+					 content.updateUserSelectedOption(to: $0)
+				  }),
+					label: Text("School Name")) {
 					ForEach(viewModel.options) { option in
 						Text(option.name).tag(option.name)
 					}
 				}
-				.onChange(of: selectedSchool) { _ in
-
-					//update user in firestore
-					guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
-							return
-					}
-					FirebaseManager.shared.firestore.collection("users").document(uid).updateData(["userSelectedOption": selectedSchool])
-				}
 				.pickerStyle(.inline)
-				Text("Local Binding: \(selectedSchool)")
+
 				Text("Firebase: \(content.user?.userSelectedOption ?? "")")
 			}
 		}
 
-		.onAppear {
-			DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-				selectedSchool = content.user?.userSelectedOption ?? ""
-			}
-		}
+
 
 	}
 }
@@ -59,6 +54,8 @@ class OptionsViewModel: ObservableObject {
 	init() {
 		fetchData()
 	}
+
+
 
 	func fetchData() {
 
